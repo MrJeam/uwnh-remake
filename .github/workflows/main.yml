@@ -1,0 +1,39 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Zig
+      uses: actions/setup-zig@v1
+      with:
+        zig-version: '0.11.0' # Specify the Zig version you need
+
+    - name: Build Zig Project
+      run: |
+        zig build
+
+    - name: Auto-increment Tag
+      id: auto-tag
+      uses: anothrNick/github-tag-action@1.26.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BUMP: patch # Set to patch, minor, or major as per your versioning strategy
+        RELEASE_BRANCHES: main
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.auto-tag.outputs.new_tag }}
+        files: |
+          web/**/*
+          web/wasm/game.wasm
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
