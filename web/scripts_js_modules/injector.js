@@ -55,7 +55,7 @@ document.body.style.boxSizing = 'border-box';
 document.body.style.overflow = 'hidden';
 // console.log(wasm.instance.exports.game_getCurrentWorldIndex());
 // Note: It doesn't really matter where, in the order of things, this CSS file is loaded since it doesn't get used right away
-const juice_it_css = import.meta.resolve("/styles/juice-it-animations.css");
+const juice_it_css = import.meta.resolve("../styles/juice-it-animations.css");
 var link = document.createElement('link');
 link.rel = 'stylesheet';
 link.type = 'text/css';
