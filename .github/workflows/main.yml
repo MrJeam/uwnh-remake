@@ -12,9 +12,9 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Set up Zig
-      uses: actions/setup-zig@v1
+      uses: goto-bus-stop/setup-zig@v2
       with:
-        zig-version: '0.11.0' # Specify the Zig version you need
+        version: '0.11.0'
 
     - name: Build Zig Project
       run: |
@@ -25,7 +25,7 @@ jobs:
       uses: anothrNick/github-tag-action@1.26.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEFAULT_BUMP: patch # Set to patch, minor, or major as per your versioning strategy
+        DEFAULT_BUMP: patch # Set to patch, minor, or major
         RELEASE_BRANCHES: main
 
     - name: Create GitHub Release
