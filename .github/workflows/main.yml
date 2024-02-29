@@ -9,7 +9,7 @@ jobs:
   build-and-release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Set up Zig
       uses: goto-bus-stop/setup-zig@v2
@@ -23,6 +23,5 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ steps.generate_release_tag.outputs.next_release_tag }}
-        generateReleaseNotes: true
-        makeLatest: true
+        tag: 'v0'
+        artifacts: 'web/**/*'
