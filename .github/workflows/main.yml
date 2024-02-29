@@ -20,8 +20,27 @@ jobs:
       run: |
         zig build
 
-    - name: Create Release
-      uses: ncipollo/release-action@v1
+    - name: Prepare the artifacts
+      run: |
+        mkdir artifacts
+        cp -r web/* artifacts/
+
+    - name: Checkout release branch
+      uses: actions/checkout@v2
       with:
-        tag: 'v0'
-        artifacts: 'web/**/*'
+        ref: release
+        fetch-depth: 0
+
+    - name: Copy build artifacts to root of release branch
+      run: |
+        git rm -r *
+        cp -r ../artifacts/* .
+        git add .
+        git status
+
+    - name: Commit and Push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Deploy build artifacts to release branch" -a || echo "No changes to commit"
+        git push origin release
