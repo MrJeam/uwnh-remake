@@ -8,6 +8,8 @@ import { Game } from './game.js';
 import { EVENTBUS } from './eventbus.js';
 import { Editor } from './editor.js';
 
+console.log('hi');
+
 customElements.define('cheatsheet-component', CheatSheet);
 customElements.define('game-component', Game);
 customElements.define('editor-component', Editor);
