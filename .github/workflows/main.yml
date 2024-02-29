@@ -44,3 +44,18 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Deploy build artifacts to release branch" -a || echo "No changes to commit"
         git push origin release
+
+    - name: Determine CDN URLs to Purge
+      id: purge_urls
+      run: |
+        baseUrl="https://cdn.jsdelivr.net/gh/${{ github.repository }}@release"
+        urls=""
+        for f in `find . -type f`; do
+          urls+="${baseUrl}/${f},"
+        done
+        echo "urls=${urls%,*}" >> $GITHUB_OUTPUT
+
+    - name: Purge CDN Caches
+      uses: egad13/purge-jsdelivr-cache@v1
+      with:
+        url: ${{ steps.purge_urls.outputs.urls }}
