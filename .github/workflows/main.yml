@@ -22,8 +22,8 @@ jobs:
 
     - name: Prepare the artifacts
       run: |
-        mkdir artifacts
-        cp -r web/* artifacts/
+        mkdir ../artifacts
+        cp -r web/* ../artifacts/
 
     - name: Checkout release branch
       uses: actions/checkout@v2
