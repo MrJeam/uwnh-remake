@@ -31,7 +31,7 @@ if (!window.requestAnimationFrame)  {
 window.GLOBALS = {
     SCALE: 2,
     SIZE: 32,
-    ATLAS_PNG_FILENAME: '/images/atlas.png',
+    ATLAS_PNG_FILENAME: import.meta.resolve('../images/atlas.png'),
     LAYER_ID_TO_IMAGE_JSON_FILENAME: import.meta.resolve('../json/layer_id_to_image.json'),
     LAYER_ID_TO_IMAGE: null,
     EVENTBUS: new EVENTBUS(),
